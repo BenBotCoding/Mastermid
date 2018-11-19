@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class here.
+ * Write a description of class Simon here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -17,11 +17,12 @@ public class Mastermind
         instructions();
         goalCode = generateCode();
         printArray(goalCode);
-        while (gameOver = false){
+        while (gameOver == false){
             System.out.println ("You have " + guessesLeft + " guesses left.");
-            System.out.println ("Please enter your guess. Valid colours ROYGBP");
-            //             String userInput = read
-
+            String userInput = readInput("Please enter your guess. Valid colours ROYGBP");
+            if (userInput.charAt(i) == goalCode(i)) {
+                
+            }
         }
     }
 
@@ -79,24 +80,20 @@ public class Mastermind
         System.out.println (prompt);
         String input = " ";
         boolean correctInput = true;
-        boolean validInput = true;
+        boolean validInput = false;
         while (correctInput = true) {
             Scanner scan = new Scanner(System.in);
             input = readString();
-            char R = input.charAt(0);
-            char O = input.charAt(1);
-            char Y = input.charAt(2);
-            char d = input.charAt(3);
-            for (int i = 0; i < 4;i++){
-                if (input.charAt(i) != 'R' ||input.charAt(i) != 'O' ||input.charAt(i) != Y ||input.charAt(i) != 'G' ||input.charAt(i) != 'B' ||input.charAt(i) != 'P'){
-                    validInput = false;
+            for (int i = 0; i < input.length();i++){
+                if (input.charAt(i) == 'R' ||input.charAt(i) == 'O' ||input.charAt(i) == 'Y' ||input.charAt(i) == 'G' ||input.charAt(i) == 'B' ||input.charAt(i) == 'P'){
+                    validInput = true;
                 }
-                if (validInput = true){ 
-                    break;
-                }
-                else {
-                    System.out.println ("Enter a value within bounds");
-                }
+            }
+            if (validInput == true){ 
+                break;
+            }
+            else if (validInput == false){
+                System.out.println ("Enter ROYGBP only");
             }
         }
         return input;
@@ -113,7 +110,7 @@ public class Mastermind
         {
             Scanner scan = new Scanner(System.in);
             inputString = scan.nextLine(); 
-            if (inputString.length() < 4 && inputString.length() > 0){ //checks if the entered value is an integer
+            if (inputString.length() == 4){ //checks if the entered value is an integer
                 break;
             }
             else {
