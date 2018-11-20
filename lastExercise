@@ -14,16 +14,71 @@ public class Mastermind
         boolean gameOver = false;
         int guessesLeft = 12;
         char[] goalCode = new char[4];
+        String[] generatedFeedback = new String[4];
         instructions();
         goalCode = generateCode();
-        printArray(goalCode);
+        //printCharArray(goalCode);
         while (gameOver == false){
+            System.out.println("");
             System.out.println ("You have " + guessesLeft + " guesses left.");
             String userInput = readInput("Please enter your guess. Valid colours ROYGBP");
-            if (userInput.charAt(i) == goalCode(i)) {
-                
+            gameOver = generateFeedback(goalCode, userInput);
+            guessesLeft--;
+            if (guessesLeft == 0){
+                System.out.println("");
+                System.out.println("Defeat!");
+                System.out.println("");
+                System.out.println("The goal was: ");
+                printCharArray(goalCode);
+                break;
             }
         }
+        if (gameOver == true){
+            System.out.println("");
+            System.out.println("Victory!");
+            System.out.println("");
+            System.out.println("The goal was: ");
+            printCharArray(goalCode);
+        }
+    }
+
+    /**
+     * Read in a character array and a string to generate the user feedback on their input
+     * @param goalcode: the solution to the game for that session
+     * @param userInput: the guess for the solution by the user
+     */ 
+    public static boolean generateFeedback(char[] goalCode, String userInput)
+    {
+        String[] feedback = new String[4];
+        int counter = 0;
+        boolean foundGoalCode = false;
+        boolean inGoal = false;
+        for (int i = 0; i < 4; i++){
+            inGoal = false;
+            for(int j = 0; j < 4; j++){
+                if (userInput.charAt(i) == goalCode[j]){
+                    feedback[i] = "o";
+                    inGoal = true;
+                }
+                else if (inGoal == false){
+                    feedback[i] = "";
+                }
+                if (userInput.charAt(i) == goalCode[i]) {
+                    feedback[i] = "*";
+                }
+            }
+        }
+        for (int k = 0; k < 4; k++){
+            if (feedback[k] == "*"){
+                counter++;
+            }
+            if (counter == 4){
+                foundGoalCode = true;
+            }
+        }
+        System.out.println("Your feedback: ");
+        printStringArray(feedback);
+        return foundGoalCode;
     }
 
     /**
@@ -63,7 +118,24 @@ public class Mastermind
      * list the indices and values held in the given array
      * @param array: an array of integers
      */
-    public static void printArray (char[] array)
+    public static void printStringArray (String[] array)
+    {
+        for (int i = 0; i < array.length; i++)
+        {
+            if (array[i] == ""){
+                System.out.print("");
+            }
+            else {
+                System.out.print (array[i] + " ");
+            }
+        }
+    } 
+
+    /*
+     * list the indices and values held in the given array
+     * @param array: an array of integers
+     */
+    public static void printCharArray (char[] array)
     {
         for (int i = 0; i < array.length; i++)
         {
