@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Simon here.
+ * A game of mastermind against computer generated code
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Ben 
+ * @version 1.1
  */
 import java.util.Scanner;
 public class Mastermind
@@ -11,34 +11,34 @@ public class Mastermind
 
     public static void main (String[] args)
     {
-        boolean gameOver = false;
-        int guessesLeft = 12;
-        char[] goalCode = new char[4];
-        String[] generatedFeedback = new String[4];
-        instructions();
-        goalCode = generateCode();
+        boolean gameOver = false; 
+        int guessesLeft = 12; //User starting guesses
+        char[] goalCode = new char[4]; //char array to store the random goal for the user
+        String[] generatedFeedback = new String[4]; //String array to tell the user the accuracy of their guess
+        instructions(); //Prints out the instructions
+        goalCode = generateCode(); // generates a random goal
         //printCharArray(goalCode);
-        while (gameOver == false){
+        while (gameOver == false){ //turns true if the goal is guessed or the user attempts run out
             System.out.println("");
-            System.out.println ("You have " + guessesLeft + " guesses left.");
-            String userInput = readInput("Please enter your guess. Valid colours ROYGBP");
-            gameOver = generateFeedback(goalCode, userInput);
-            guessesLeft--;
-            if (guessesLeft == 0){
+            System.out.println ("You have " + guessesLeft + " guesses left."); //Tells the user how many guesses they have left
+            String userInput = readInput("Please enter your guess. Valid colours ROYGBP"); //Takes in the user's input and checks if it's a valid input
+            gameOver = generateFeedback(goalCode, userInput); //updates the gameOver boolean to true if the user input matches the goal
+            guessesLeft--; //reduces the amount of guesses left
+            if (guessesLeft == 0){ //Tells the user that they have lost
                 System.out.println("");
                 System.out.println("Defeat!");
                 System.out.println("");
                 System.out.println("The goal was: ");
                 printCharArray(goalCode);
-                break;
+                gameOver = true;
             }
         }
-        if (gameOver == true){
+        if (gameOver == true){ //Tells the user that they have won
             System.out.println("");
             System.out.println("Victory!");
             System.out.println("");
             System.out.println("The goal was: ");
-            printCharArray(goalCode);
+            printCharArray(goalCode); //Prints out the goal to the user
         }
     }
 
@@ -52,9 +52,9 @@ public class Mastermind
         String[] feedback = new String[4];
         int counter = 0;
         boolean foundGoalCode = false;
-        boolean inGoal = false;
-        for (int i = 0; i < 4; i++){
-            inGoal = false;
+        boolean inGoal = false; //Used to check if the user input is in the goal
+        for (int i = 0; i < 4; i++){ //Cycles through the user input
+            inGoal = false; 
             for(int j = 0; j < 4; j++){
                 if (userInput.charAt(i) == goalCode[j]){
                     feedback[i] = "o";
@@ -68,7 +68,7 @@ public class Mastermind
                 }
             }
         }
-        for (int k = 0; k < 4; k++){
+        for (int k = 0; k < 4; k++){ //Used to check if the user input is correct
             if (feedback[k] == "*"){
                 counter++;
             }
@@ -77,7 +77,7 @@ public class Mastermind
             }
         }
         System.out.println("Your feedback: ");
-        printStringArray(feedback);
+        printStringArray(feedback); //Prints the feedback to the user
         return foundGoalCode;
     }
 
@@ -105,8 +105,8 @@ public class Mastermind
             char[] randomCode = new char[4];
             String availableLetters = "ROYGBP";
             for (int i = 0; i<4; i++){
-                int randomChar = (int)(Math.random()*(5 - 0 + 1) + 0);
-                randomCode[i] = availableLetters.charAt(randomChar);
+                int randomChar = (int)(Math.random()*(5 - 0 + 1) + 0); //generates a random int used to select a random letter from the String
+                randomCode[i] = availableLetters.charAt(randomChar); //Selects a random character using a random int and places that into the array
             }
             return randomCode;
 
@@ -122,7 +122,7 @@ public class Mastermind
     {
         for (int i = 0; i < array.length; i++)
         {
-            if (array[i] == ""){
+            if (array[i] == ""){ //if a spot in the array is empty it prints nothing
                 System.out.print("");
             }
             else {
@@ -156,7 +156,7 @@ public class Mastermind
         while (correctInput = true) {
             Scanner scan = new Scanner(System.in);
             input = readString();
-            for (int i = 0; i < input.length();i++){
+            for (int i = 0; i < input.length();i++){ //Checks if the input uses the correct characters
                 if (input.charAt(i) == 'R' ||input.charAt(i) == 'O' ||input.charAt(i) == 'Y' ||input.charAt(i) == 'G' ||input.charAt(i) == 'B' ||input.charAt(i) == 'P'){
                     validInput = true;
                 }
@@ -182,7 +182,7 @@ public class Mastermind
         {
             Scanner scan = new Scanner(System.in);
             inputString = scan.nextLine(); 
-            if (inputString.length() == 4){ //checks if the entered value is an integer
+            if (inputString.length() == 4){ //checks if 4 values were entered
                 break;
             }
             else {
